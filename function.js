@@ -15,6 +15,8 @@ const buttonMultiply = document.querySelector(".buttonMultiply");
 const buttonDivide = document.querySelector(".buttonDivide");
 const buttonEqual = document.querySelector(".buttonEqual");
 const buttonClear = document.querySelector(".buttonClear");
+const buttonBackspace =  document.querySelector(".buttonBackspace");
+const buttonComma = document.querySelector(".buttonComma");
 
 let operator = undefined;
 let number1 = undefined;
@@ -23,59 +25,95 @@ let operationMode = "off";
 let clearScreen = "on"
 display.innerHTML = "0"
 
+
+
 window.addEventListener("keydown", function (event) {
   if (event.key === "1") {
+    event.preventDefault();
     button1.click();
   }
   if (event.key === "2") {
+    event.preventDefault();
     button2.click();
   }
   if (event.key === "3") {
+    event.preventDefault();
     button3.click();
   }
   if (event.key === "4") {
+    event.preventDefault();
     button4.click();
   }
   if (event.key === "5") {
+    event.preventDefault();
     button5.click();
   }
   if (event.key === "6") {
+    event.preventDefault();
     button6.click();
   }
   if (event.key === "7") {
+    event.preventDefault();
     button7.click();
   }
   if (event.key === "8") {
+    event.preventDefault();
     button8.click();
   }
   if (event.key === "9") {
+    event.preventDefault();
     button9.click();
   }
   if (event.key === "0") {
+    event.preventDefault();
     button0.click();
   }
   if (event.key === "+") {
+    event.preventDefault();
     buttonAdd.click();
   }
   if (event.key === "-") {
+    event.preventDefault();
     buttonSubtraction.click();
   }
   if (event.key === "/") {
+    event.preventDefault();
     buttonDivide.click();
   }
   if (event.key === "*") {
+    event.preventDefault();
     buttonMultiply.click();
   }
   if (event.key === "Enter") {
     event.preventDefault();
     buttonEqual.click();
   }
-  if (event.key === ",") {
+  if (event.key === "Tab") {
+    event.preventDefault();
     buttonClear.click();
-    
+  }
+
+  if(event.key === "Backspace") {
+    event.preventDefault();
+    buttonBackspace.click();
   }
   console.log(event.key);
 
+});
+
+
+buttonComma.addEventListener("click", () => {
+  if(getDisplayContent().indexOf(".") > -1 || getDisplayContent().length < 1) {
+    display.innerHTML = getDisplayContent();
+  } else {
+    display.innerHTML = getDisplayContent() + ".";
+  }
+   
+});
+
+buttonBackspace.addEventListener("click", () => {
+  let displayContent = getDisplayContent();
+  display.innerHTML = displayContent.substring(0, displayContent.length -1);
 });
 
 buttonAdd.addEventListener("click", () => {
@@ -193,9 +231,9 @@ function divide(number1, number2) {
     display.innerHTML = "can't divide by 0!"
     clearScreen = "on";
   } else {
-    display.innerHTML = +number1 / +number2;
+    display.innerHTML = Math.round((+number1 / +number2) * 100) /100;
   }
-
+  
 }
 
 function operate(operator, number1, number2) {
